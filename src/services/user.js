@@ -32,7 +32,6 @@ module.exports = {
     },
 
 
-
     /**
      *  @param {uuid} user
    * @returns {userCollection}
@@ -40,11 +39,10 @@ module.exports = {
     async getLoggedinUser(req) {
       try {
         let userCollection = await User.findOne({id:req.user._id})
-        
         userCollection = _.pick(userCollection, ['email', 'name', 'wallet.balance'])
-        return userCollection
+        return userCollection 
       } catch (e) {
-        throw (new ErrorResponse(e.message, statusCode));
+        throw (new ErrorResponse(e.message, e.statusCode));
       }
     },
 
@@ -85,7 +83,7 @@ module.exports = {
               return createTransaction
 
           } catch (e) {
-              throw (new ErrorResponse(e.message, statusCode));
+              throw (new ErrorResponse(e.message, e.statusCode));
               await session.abortTransaction()
 
           }finally{
@@ -171,7 +169,7 @@ module.exports = {
 
           }
           catch (e) {
-              throw (new ErrorResponse(e, statusCode));
+              throw (new ErrorResponse(e, e.statusCode));
               await session.abortTransaction()
 
           }finally{

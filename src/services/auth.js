@@ -58,7 +58,7 @@ module.exports = {
         return token
     } catch (e) {
 
-      throw (new ErrorResponse(e.message,  500))
+      throw (new ErrorResponse(e.message,  e.statusCode))
     }
   },
 }

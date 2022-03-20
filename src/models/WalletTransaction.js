@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 const WalletTransactionSchema = new Schema({
   amount: {
     type: mongoose.Decimal128,
+    get:getAmount,
     required: true
   },
 
@@ -26,6 +27,7 @@ const WalletTransactionSchema = new Schema({
     required: true
   },
 
+
   sourceWallet: {
     type: mongoose.Schema.ObjectId,
     ref: 'User',
@@ -36,8 +38,13 @@ const WalletTransactionSchema = new Schema({
     ref: 'User',
   },
   
-},     { timestamps: true }
+},{toJSON:{getters:true}},{ timestamps: true }
 );
-
+function getAmount(value) {
+  if (typeof value !== 'undefined') {
+     return parseFloat(value.toString());
+  }
+  return value;
+};
 
 module.exports = mongoose.model('WalletTransaction', WalletTransactionSchema, 'walletTransaction');

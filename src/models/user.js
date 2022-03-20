@@ -30,12 +30,20 @@ const UserSchema = new Schema({
       wallet: {
         balance: {
           type: mongoose.Decimal128,
+          get:getWalletBalance,
           default:0.00
         },
     }
         
-},    
+},{toJSON:{getters:true}},   
 { timestamps: true }
 );
+
+function getWalletBalance(value) {
+  if (typeof value !== 'undefined') {
+     return parseFloat(value.toString());
+  }
+  return value;
+};
 
 module.exports = mongoose.model('User', UserSchema, 'user');
