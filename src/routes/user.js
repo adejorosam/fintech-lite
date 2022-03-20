@@ -1,7 +1,6 @@
-// const { userController } = require("../controllers/user");
 const validationMiddleware  = require("../middlewares");
 const authMiddleware  = require("../middlewares/authMiddleware");
-const { withdrawFunds, transferFunds, getAllUsers, getLoggedinUser } = require("../controllers/user");
+const { withdrawFunds, transferFunds, getAllUsers, getLoggedinUser, getUserTransactions } = require("../controllers/user");
 
 const {
   transferFundValidationRules,
@@ -37,15 +36,11 @@ router.post(
 
 
 
-
-
-// router.post(
-//   "/paystack-pay",
-//   authMiddleware,
-//   // transferFundValidationRules(),
-//   // validationMiddleware,
-//   depositFundPage
-// );
+router.get(
+  "/transactions",
+  authMiddleware,
+  getUserTransactions
+);
 
 
 module.exports = router;

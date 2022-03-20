@@ -15,13 +15,26 @@ module.exports = {
           const userCollection = await User.find({})
           return userCollection
         } catch (e) {
-          throw (new ErrorResponse(e.message, 500));
+          throw (new ErrorResponse(e.message, e.statusCode));
         }
       },
+
+      /**
+   * @returns {userTransactions}
+   */
+    async getUserTransactions(user) {
+      try {
+        const userTransactions = await walletTransaction.find({user:user})
+        return userTransactions
+      } catch (e) {
+        throw (new ErrorResponse(e.message, e.statusCode));
+      }
+    },
 
 
 
     /**
+     *  @param {uuid} user
    * @returns {userCollection}
    */
     async getLoggedinUser(req) {
@@ -29,17 +42,16 @@ module.exports = {
         let userCollection = await User.findOne({id:req.user._id})
         
         userCollection = _.pick(userCollection, ['email', 'name', 'wallet.balance'])
-        console.log(userCollection)
         return userCollection
       } catch (e) {
-        throw (new ErrorResponse(e.message, 500));
+        throw (new ErrorResponse(e.message, statusCode));
       }
     },
 
     /**
    * @param {object} user
-   * @param {int} amount
-   * @returns {wallet}
+   * @param {int} withdrawalAmount
+   * @returns {createTransaction}
    */
     async withdrawFunds(user, withdrawalAmount) {
         const session = await mongoose.startSession();
@@ -73,7 +85,7 @@ module.exports = {
               return createTransaction
 
           } catch (e) {
-              throw (new ErrorResponse(e.message, 500));
+              throw (new ErrorResponse(e.message, statusCode));
               await session.abortTransaction()
 
           }finally{
@@ -86,7 +98,7 @@ module.exports = {
    * @param {object} user
    * @param {uuid} recipient
    * @param {int} amount
-   * @returns {sourceWallet, destinationWallet}
+   * @returns {createSenderTransaction, createReceiverTransaction}
    */
     async transferFunds(user, recipient, amount) {
    
@@ -159,7 +171,7 @@ module.exports = {
 
           }
           catch (e) {
-              throw (new ErrorResponse(e, 500));
+              throw (new ErrorResponse(e, statusCode));
               await session.abortTransaction()
 
           }finally{

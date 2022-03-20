@@ -22,8 +22,6 @@
     "jest-extended": "^2.0.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
-    "loglevel": "^1.8.0",
-    "moment": "^2.29.1",
     "mongoose": "^5.13.2",
     "morgan": "^1.10.0",
     "pug": "^3.0.2",

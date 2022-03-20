@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const cors = require('cors');
 const pug = require('pug');
-const _ = require('lodash');
 const path = require('path');
 const morgan = require('morgan')
 const colors = require('colour')

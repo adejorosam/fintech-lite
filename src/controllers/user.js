@@ -7,7 +7,8 @@ const {
   withdrawFunds,
   transferFunds,
   getAllUsers,
-  getLoggedinUser
+  getLoggedinUser,
+  getUserTransactions
 } = require("../services/user");
 
 module.exports = {
@@ -18,12 +19,23 @@ module.exports = {
       
       return SuccessResponse(res, "Users retrieved successfully", userCollection,  200)
     } catch (e) {
-      return next(new ErrorResponse(e.message, 500));
+      return next(new ErrorResponse(e.message, e.statusCode));
+    }
+  },
+
+  async getUserTransactions(req, res, next) {
+    try {
+      const userTransactions = await getUserTransactions(req.user.id)
+      
+      return SuccessResponse(res, "User transactions retrieved successfully", userTransactions,  200)
+    } catch (e) {
+      return next(new ErrorResponse(e.message, e.statusCode));
     }
   },
 
   async getLoggedinUser(req, res, next) {
     try {
+      
       const userCollection = await getLoggedinUser(req)
       
       return SuccessResponse(res, "Profile details", userCollection,  200)

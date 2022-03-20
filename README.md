@@ -1,19 +1,15 @@
-## Fintech Lite
+# Fintech-Lite app
 
-Fintech Lite, Simple node js with mysql that provides endpoints for fake user authentication, funding of account, withdrawal of funds from account and transfer of funds to other users.
+## Postman application
 
-**Usage Procedure**
+- Postman Collection [Fintech Lite Postman](https://documenter.getpostman.com/view/11352997/UVC3jnba)
 
-> clone repository -> `git clone https://github.com/adejorosam/fintech-lite.git`
+## How To Run
+1. Start by installing all dependencies by running `npm install`
+2. Create a `.env` file copy contents from `.env.example` to `.env` using `cp .env.example .env`then populate it with required values where necessary.
 
-> install packages -> `npm install`
+> **Note:** please ensure that you have MongoDB installed locally and is running.
 
-> Database Setup Required -> MySQL - start server locally then continue to next step
-
-> run migrations -> `yarn run migrate`
-
-> start server -> `yarn start`
-
-> check out the postman docs for more
-
-signature -> **codexy**
+## Important Commands
+- run `npm i` or `npm install` to install all dependencies
+- run `npm start` to start the development server
