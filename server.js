@@ -39,11 +39,11 @@ app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'pug')
 
 
-const PORT = process.env.PORT || 9900;
+const PORT = process.env.PORT || 3000;
 
 
 
-// app.use('/home', (req, res, next)  => {
+// app.use('/', (req, res, next)  => {
 //   return res.json("Welcome to Fintech Lite Service")
 // })
 
