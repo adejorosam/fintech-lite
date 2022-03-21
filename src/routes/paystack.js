@@ -8,7 +8,7 @@ router.post(
   depositFunds
 );
 
-router.get('/home', homepage)
+router.get('/', homepage)
 
 router.get('/error', errorPage)
 
