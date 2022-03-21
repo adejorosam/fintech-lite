@@ -7,6 +7,6 @@ block content
                     form(name='myForm', action='/paystack/pay', method='POST')
                         input#email(type='email', name='email', placeholder='Email', required)
                         hr
-                        input#amount(type='number', name='amount', placeholder='Amount', required)
+                        input#amount(type='number', name='amount', placeholder='Amount', required, min=100)
                         .bttn.pt-2
                             button(type='submit') FUND

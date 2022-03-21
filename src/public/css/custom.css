@@ -10,6 +10,16 @@ nav{
     background: rgb(3, 102, 116);
 }
 
+input[type=email] {
+    /* Awesome styling */ 
+    color: #000 !important; font-size: 20px !important
+ }
+
+ input[type=number] {
+    /* Awesome styling */ 
+    color: #000 !important; font-size: 20px !important
+ }
+
 main{
     width: 60%;
     margin:  auto;

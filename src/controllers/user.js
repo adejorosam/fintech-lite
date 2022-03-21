@@ -8,7 +8,8 @@ const {
   transferFunds,
   getAllUsers,
   getLoggedinUser,
-  getUserTransactions
+  getUserTransactions,
+  verifyEmail
 } = require("../services/user");
 
 module.exports = {
@@ -72,6 +73,17 @@ module.exports = {
     } 
     catch (e) {
           return next(new ErrorResponse(e.message,  e.statusCode))
+    }
+  },
+
+  async verifyEmail(req, res, next) {
+    try {
+      const { email } = req.body;
+      const userCollection = await verifyEmail(email)
+      
+      return SuccessResponse(res, "Email verified successfully", userCollection,  200)
+    } catch (e) {
+      return next(new ErrorResponse(e.message, e.statusCode));
     }
   },
 

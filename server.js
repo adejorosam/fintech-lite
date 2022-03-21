@@ -22,8 +22,6 @@ const userRoutes = require("./src/routes/user");
 const paystackRoutes = require("./src//routes/paystack");
 
 
-
-
 //Dev logging middleware
 if (process.env.NODE_ENV === 'development') {
   app.use(morgan('dev'));
@@ -43,9 +41,6 @@ const PORT = process.env.PORT || 3000;
 
 
 
-// app.use('/', (req, res, next)  => {
-//   return res.json("Welcome to Fintech Lite Service")
-// })
 
 
 app.use("/api/v1/users", userRoutes);
@@ -55,6 +50,7 @@ app.use("/", paystackRoutes);
 // Connect to mongo db
 connectDB();
 
+//Error handler middleware
 app.use(errorHandlerMiddleware);
 
 

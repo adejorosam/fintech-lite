@@ -47,6 +47,22 @@ module.exports = {
     },
 
     /**
+     *  @param {string} email
+   * @returns {userCollection}
+   */
+     async verifyEmail(email) {
+      try {
+        let userCollection = await User.findOne({email:email})
+        if (!userCollection) {   
+          throw (new ErrorResponse(`Email does not exist`, 404));
+        }
+        return userCollection 
+      } catch (e) {
+        throw (new ErrorResponse(e.message, e.statusCode));
+      }
+    },
+
+    /**
    * @param {object} user
    * @param {int} withdrawalAmount
    * @returns {createTransaction}

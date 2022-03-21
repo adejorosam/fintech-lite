@@ -1,6 +1,6 @@
 const validationMiddleware  = require("../middlewares");
 const authMiddleware  = require("../middlewares/authMiddleware");
-const { withdrawFunds, transferFunds, getAllUsers, getLoggedinUser, getUserTransactions } = require("../controllers/user");
+const { withdrawFunds, transferFunds, getAllUsers, getLoggedinUser, getUserTransactions, verifyEmail } = require("../controllers/user");
 
 const {
   transferFundValidationRules,
@@ -35,12 +35,16 @@ router.post(
 );
 
 
-
 router.get(
   "/transactions",
   authMiddleware,
   getUserTransactions
 );
+
+router.post(
+  "/verify",
+  verifyEmail
+)
 
 
 module.exports = router;
