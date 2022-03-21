@@ -1,28 +1,21 @@
 const request = require("supertest");
-const { knex } = require("../db");
-const { SCHEMAS } = require("../db/schema.constant");
 const { mockCreateUserOne, mockCreateUserTwo } = require("./mock");
-const app = require("../");
-const { userModel } = require("../models/user");
-
+// const { userModel } = require("../models/User");
+const {login, register} = require("../services/auth") 
+const mongoose = require('mongoose');
 describe("user - and - auth", () => {
-  let userOne = {
-    id: null,
-    record: null,
-    token: "",
-  };
 
-  let userTwo = {
-    id: null,
-    record: null,
-    token: "",
-  };
-
-  beforeAll(async () => {
-    const [id] = await knex(SCHEMAS.User).insert(mockCreateUserOne);
-    await knex(SCHEMAS.Wallet).insert({ userId: id });
-    userOne.id = id;
+  // It's just so easy to connect to the MongoDB Memory Server 
+    // By using mongoose.connect
+    beforeAll(async () => {
+      await mongoose.connect(global.__MONGO_URI__, { useNewUrlParser: true, useCreateIndex: true }, (err) => {
+          if (err) {
+              console.error(err);
+              process.exit(1);
+          }
+      });
   });
+ 
 
   it("should login user", async () => {
     const res = await request(app)
@@ -78,16 +71,16 @@ describe("user - and - auth", () => {
     ).rejects.toThrowErrorMatchingSnapshot();
   });
 
-  it("should update user's name by id with new name", async () => {
-    const oldName = userOne.record.name;
-    const newName = "Senior";
+  // it("should update user's name by id with new name", async () => {
+  //   const oldName = userOne.record.name;
+  //   const newName = "Senior";
 
-    await userModel.updateUser(userOne.id, { name: newName });
-    const updatedUser = await userModel.findUserById(userOne.id);
+  //   await userModel.updateUser(userOne.id, { name: newName });
+  //   const updatedUser = await userModel.findUserById(userOne.id);
 
-    expect(updatedUser.name).toBe(newName);
-    expect(updatedUser.name).not.toBe(oldName);
-  });
+  //   expect(updatedUser.name).toBe(newName);
+  //   expect(updatedUser.name).not.toBe(oldName);
+  // });
 
   it("should create a user", async () => {
     const res = await userModel.createUser(mockCreateUserTwo);
