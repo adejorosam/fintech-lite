@@ -1,6 +1,13 @@
-const validationMiddleware  = require("../middlewares");
-const authMiddleware  = require("../middlewares/authMiddleware");
-const { withdrawFunds, transferFunds, getAllUsers, getLoggedinUser, getUserTransactions, verifyEmail } = require("../controllers/user");
+const validationMiddleware = require("../middlewares");
+const authMiddleware = require("../middlewares/authMiddleware");
+const {
+  withdrawFunds,
+  transferFunds,
+  getAllUsers,
+  getLoggedinUser,
+  getUserTransactions,
+  verifyEmail,
+} = require("../controllers/user");
 
 const {
   transferFundValidationRules,
@@ -11,12 +18,7 @@ const router = require("express").Router();
 
 router.get("/all-users", authMiddleware, getAllUsers);
 
-router.get(
-  "/me",
-  authMiddleware,
- getLoggedinUser
-);
-
+router.get("/me", authMiddleware, getLoggedinUser);
 
 router.post(
   "/transfer-fund",
@@ -34,17 +36,8 @@ router.post(
   withdrawFunds
 );
 
+router.get("/transactions", authMiddleware, getUserTransactions);
 
-router.get(
-  "/transactions",
-  authMiddleware,
-  getUserTransactions
-);
-
-router.post(
-  "/verify",
-  verifyEmail
-)
-
+router.post("/verify", verifyEmail);
 
 module.exports = router;
