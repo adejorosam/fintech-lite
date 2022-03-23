@@ -1,5 +1,7 @@
 # Fintech-Lite app
 
+
+{{API-URL}} => https://fintech-lite.herokuapp.com/api/v1/
 ## Live Link And Postman
 
 - Live link here [Live Fintech Lite Link](https://fintech-lite.herokuapp.com/)
@@ -18,6 +20,11 @@
 - run `npm start` to start the development server
 
 ## How to fund card
+<<<<<<< HEAD
 
 Step 1: Make sure you are verified user before going on to pay on the payment url.
 Step 2: Go to [payment link](https://fintech-lite.herokuapp.com/) to fund your card.
+=======
+- Make sure you are a verified user before going on to pay on the payment url.
+- Go to [payment link](https://fintech-lite.herokuapp.com/) to fund your wall.
+>>>>>>> e168d9f223cbd8e7ba7518a02bc5deab5c5538dc
