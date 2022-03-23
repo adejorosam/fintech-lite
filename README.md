@@ -21,4 +21,4 @@
 
 ## How to fund card
 - Make sure you are a verified user before going on to pay on the payment url.
-- Go to [payment link](https://fintech-lite.herokuapp.com/) to fund your wall.
+- Go to [payment link](https://fintech-lite.herokuapp.com/) to fund your wallet.
