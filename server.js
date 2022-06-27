@@ -7,6 +7,10 @@ const morgan = require("morgan");
 const colors = require("colour");
 const connectDB = require("./src/config/db");
 const errorHandlerMiddleware = require("./src/middlewares/errorHandlerMiddleware");
+const expressGraphQL = require('express-graphql').graphqlHTTP
+const { GraphQLSchema } = require('graphql');
+const RootQueryType = require('./src/graphql/GraphQLQuery');
+
 
 const app = express();
 
@@ -14,6 +18,16 @@ app.use(express.urlencoded({ extended: false }));
 
 //Body parser
 app.use(express.json());
+
+
+const schema = new GraphQLSchema({
+  query: RootQueryType
+});
+
+app.use('/graphql', expressGraphQL({
+  schema: schema,
+  graphiql: true
+}))
 
 // Route files
 const authRoutes = require("./src/routes/auth");

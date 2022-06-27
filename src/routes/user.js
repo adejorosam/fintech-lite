@@ -16,7 +16,7 @@ const {
 
 const router = require("express").Router();
 
-router.get("/all-users", authMiddleware, getAllUsers);
+router.get("/all-users", getAllUsers);
 
 router.get("/me", authMiddleware, getLoggedinUser);
 
