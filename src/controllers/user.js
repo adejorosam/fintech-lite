@@ -10,6 +10,7 @@ const {
   getLoggedinUser,
   getUserTransactions,
   verifyEmail,
+  getAUser
 } = require("../services/user");
 
 module.exports = {
@@ -20,6 +21,21 @@ module.exports = {
       return SuccessResponse(
         res,
         "Users retrieved successfully",
+        userCollection,
+        200
+      );
+    } catch (e) {
+      return next(new ErrorResponse(e.message, e.statusCode));
+    }
+  },
+
+  async getUser(req, res, next) {
+    try {
+      const userCollection = await getAUser(req.userId);
+
+      return SuccessResponse(
+        res,
+        "User retrieved successfully",
         userCollection,
         200
       );

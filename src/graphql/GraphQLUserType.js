@@ -5,7 +5,9 @@ const {
     GraphQLNonNull,
     GraphQLFloat
   } = require('graphql');
-  
+  const {
+    getAUser,
+  } = require("../services/user")
   const UserType = new GraphQLObjectType({
     name: 'User',
     description: 'Schema for users',

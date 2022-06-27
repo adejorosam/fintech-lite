@@ -2,18 +2,26 @@ const {GraphQLList, GraphQLObjectType, GraphQLInt, GraphQLString } = require('gr
 const UserType  = require('./GraphQLUserType.js')
 const WalletTransactionType = require('./GraphQLWalletTransactionType.js')
 const {
-    withdrawFunds,
-    transferFunds,
     getAllUsers,
-    getLoggedinUser,
     getUserTransactions,
-    verifyEmail,
+    getAUser,
   } = require("../services/user")
 
 const RootQueryType = new GraphQLObjectType({
   name: 'Query',
   description: 'Root Query',
   fields: () => ({
+    user:{
+      type: UserType,
+      description:'Query a user',
+      args:{
+        id:{type: GraphQLString}
+      },
+      resolve: async( parent, args) => {
+        let data = await getAUser(args.id)
+        return data
+      }
+  },
     users: {
       type: new GraphQLList(UserType),
       description: 'query of  a list of users',
@@ -33,10 +41,7 @@ const RootQueryType = new GraphQLObjectType({
             return data;
         }
     },
-    user:{
-        type: UserType,
-        description:'Query a user',
-    }
+    
   })
 });
 module.exports = RootQueryType

@@ -5,6 +5,8 @@ const {
     GraphQLNonNull,
     GraphQLFloat
   } = require('graphql');
+const { getAUser } = require('../services/user');
+const UserType = require('./GraphQLUserType');
   
 const WalletTransactionType = new GraphQLObjectType({
     name: 'Wallet',
@@ -19,7 +21,24 @@ const WalletTransactionType = new GraphQLObjectType({
       sourceWalletId:{type: GraphQLNonNull(GraphQLInt)},
       destinationWalletId: {type: GraphQLNonNull(GraphQLInt)},
       amount:{ type: GraphQLNonNull(GraphQLInt)},
-
+      user: {
+        type: UserType,
+        resolve: (parent, args) => {
+          return getAUser(args.userId)
+        }
+      },
+      sourceWallet:{
+        type:WalletTransactionType,
+        resolve: (parent, args) => {
+          // return
+        }
+      },
+      destinationWallet:{
+        type:WalletTransactionType,
+        resolve: (parent, args) => {
+          // return
+        }
+      }
     })
   });
   module.exports = WalletTransactionType

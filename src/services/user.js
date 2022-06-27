@@ -18,6 +18,19 @@ module.exports = {
   },
 
   /**
+   * @returns {userCollection}
+   */
+   async getAUser(user) {
+    // await walletTransaction.find({ user: user });
+    try {
+      const userCollection = await User.findById(user);
+      return userCollection;
+    } catch (e) {
+      throw new ErrorResponse(e.message, e.statusCode);
+    }
+  },
+
+  /**
    * @returns {userTransactions}
    */
   async getUserTransactions(user) {
