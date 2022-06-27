@@ -1,5 +1,5 @@
 const { register, login } = require("../controllers/auth");
-const validatorMiddleware  = require("../middlewares");
+const validatorMiddleware = require("../middlewares");
 const {
   loginValidatorRules,
   registerValidatorRules,
@@ -14,11 +14,6 @@ router.post(
   register
 );
 
-router.post(
-  "/login",
-  loginValidatorRules(),
-  validatorMiddleware,
-  login
-);
+router.post("/login", loginValidatorRules(), validatorMiddleware, login);
 
 module.exports = router;

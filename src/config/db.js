@@ -1,5 +1,4 @@
-
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const connectDB = async () => {
   const conn = await mongoose.connect(process.env.MONGO_URI, {
@@ -7,7 +6,7 @@ const connectDB = async () => {
     useCreateIndex: true,
     useFindAndModify: false,
     useUnifiedTopology: true,
-    retryWrites:false
+    retryWrites: false,
   });
 
   console.log(`MongoDB Connected: ${conn.connection.host}`.cyan.underline.bold);

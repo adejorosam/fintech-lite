@@ -6,14 +6,20 @@ const fundAccountValidationRules = () => {
 
 const transferFundValidationRules = () => {
   return [
-    body("transferAmount").notEmpty().isNumeric().withMessage("Amount is required"),
+    body("transferAmount")
+      .notEmpty()
+      .isNumeric()
+      .withMessage("Amount is required"),
     body("recipient").notEmpty().withMessage("A valid recipient is required"),
   ];
 };
 
 const withdrawFundValidationRules = () => {
   return [
-    body("withdrawalAmount").notEmpty().isNumeric().withMessage("Amount is required"),
+    body("withdrawalAmount")
+      .notEmpty()
+      .isNumeric()
+      .withMessage("Amount is required"),
   ];
 };
 
