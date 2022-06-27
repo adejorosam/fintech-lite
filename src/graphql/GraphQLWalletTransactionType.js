@@ -7,7 +7,7 @@ const {
   } = require('graphql');
   
 const WalletTransactionType = new GraphQLObjectType({
-    name: 'Wallet schema',
+    name: 'Wallet',
     description: 'Schema for wallet',
     fields: () => ({
       id: { type: GraphQLNonNull(GraphQLInt) },

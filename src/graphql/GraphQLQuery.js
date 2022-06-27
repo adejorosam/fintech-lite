@@ -1,4 +1,4 @@
-const {GraphQLList, GraphQLObjectType, GraphQLInt } = require('graphql')
+const {GraphQLList, GraphQLObjectType, GraphQLInt, GraphQLString } = require('graphql')
 const UserType  = require('./GraphQLUserType.js')
 const WalletTransactionType = require('./GraphQLWalletTransactionType.js')
 const {
@@ -26,7 +26,7 @@ const RootQueryType = new GraphQLObjectType({
         type: new GraphQLList(WalletTransactionType),
         description: 'query of  a list of transactions',
         args: {
-            id: { type: GraphQLInt }
+            id: { type: GraphQLString }
           },
         resolve: async (parent, args) => {
             let data = await getUserTransactions(args.id);
