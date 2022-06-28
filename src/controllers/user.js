@@ -72,8 +72,8 @@ module.exports = {
   async withdrawFunds(req, res, next) {
     try {
       const { withdrawalAmount } = req.body;
-      const user = await User.findOne({ id: req.user._id });
-      const withdraw = await withdrawFunds(user, +withdrawalAmount);
+      // const user = await User.findOne({ id: req.user._id });
+      const withdraw = await withdrawFunds(req.user._id, +withdrawalAmount);
       if (withdraw) {
         return SuccessResponse(
           res,
@@ -90,10 +90,10 @@ module.exports = {
   async transferFunds(req, res, next) {
     try {
       const { transferAmount, recipient } = req.body;
-      const user = await User.findOne({ id: req.user._id });
+      // const user = await User.findOne({ id: req.user._id });
       // const recipient = await User.findOne({id:req.body.recipient})
       const transfer = await transferFunds(
-        user,
+        req.user._id,
         recipient,
         +req.body.transferAmount
       );

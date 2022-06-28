@@ -9,7 +9,7 @@ const connectDB = require("./src/config/db");
 const errorHandlerMiddleware = require("./src/middlewares/errorHandlerMiddleware");
 const expressGraphQL = require('express-graphql').graphqlHTTP
 const { GraphQLSchema } = require('graphql');
-const RootQueryType = require('./src/graphql/GraphQLQuery');
+const {RootQueryType, MutationType} = require('./src/graphql/GraphQLQuery');
 
 
 const app = express();
@@ -21,7 +21,8 @@ app.use(express.json());
 
 
 const schema = new GraphQLSchema({
-  query: RootQueryType
+  mutation:MutationType,
+  query: RootQueryType,
 });
 
 app.use('/graphql', expressGraphQL({
