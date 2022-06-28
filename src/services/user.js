@@ -83,7 +83,8 @@ module.exports = {
    */
   async withdrawFunds(user, withdrawalAmount) {
     const session = await mongoose.startSession();
-    const walletCollection = user.wallet;
+    const userCollection = await User.findById( user);
+    const walletCollection = userCollection.wallet;
     session.startTransaction();
     try {
       if (+withdrawalAmount <= 0) {
@@ -95,7 +96,7 @@ module.exports = {
       }
 
       const newBalance = walletCollection.balance - withdrawalAmount;
-      updateWallet = await user.updateOne(
+      updateWallet = await userCollection.updateOne(
         { "wallet.balance": newBalance },
         { returnOriginal: false },
         { session }
@@ -104,7 +105,7 @@ module.exports = {
       const createTransaction = await walletTransaction.create(
         [
           {
-            user: user._id,
+            user: userCollection._id,
             trnxType: "DR",
             purpose: "withdrawal",
             amount: withdrawalAmount,
@@ -135,9 +136,10 @@ module.exports = {
     session.startTransaction();
 
     try {
+      const userCollection = await User.findById(user);
       const recipientWallet = await User.findById(recipient);
 
-      if (!user) {
+      if (!userCollection) {
         throw new ErrorResponse(`User not found`, 404);
       }
 
@@ -146,7 +148,7 @@ module.exports = {
       }
 
       const transferAmount = parseInt(amount);
-      const sourceWalletCollection = user.wallet;
+      const sourceWalletCollection = userCollection.wallet;
       const destinationWalletCollection = recipientWallet.wallet;
 
       if (!sourceWalletCollection) {
@@ -159,7 +161,7 @@ module.exports = {
         throw new ErrorResponse(`Amount must be greater than zero`, 400);
       }
 
-      if (user._id == recipient) {
+      if (userCollection._id == recipient) {
         throw new ErrorResponse(`You can not transfer to yourself`, 400);
       }
 
@@ -171,7 +173,7 @@ module.exports = {
         +sourceWalletCollection.balance.toString() - transferAmount;
       const destinationNewBalance =
         +destinationWalletCollection.balance.toString() + transferAmount;
-      const updateSourceWallet = await user.updateOne(
+      const updateSourceWallet = await userCollection.updateOne(
         { "wallet.balance": sourceNewBalance },
         { session }
       );
@@ -183,7 +185,7 @@ module.exports = {
       const createSenderTransaction = await walletTransaction.create(
         [
           {
-            user: user._id,
+            user: userCollection._id,
             trnxType: "DR",
             destinationWallet: recipientWallet._id,
             sourceWallet: user._id,
@@ -197,7 +199,7 @@ module.exports = {
       const createReceiverTransaction = await walletTransaction.create(
         [
           {
-            user: user._id,
+            user: userCollection._id,
             destinationWallet: recipientWallet._id,
             sourceWallet: user._id,
             trnxType: "CR",
